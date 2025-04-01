@@ -1,54 +1,40 @@
-.container {
-  max-width: 400px;
-  margin: 50px auto;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
+import { useState } from "react";
+import "./styles.css";
 
-.input-container {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+export default function App() {
+  const [books, setBooks] = useState([]);
+  const [bookName, setBookName] = useState("");
 
-input {
-  flex: 1;
-  padding: 8px;
-  font-size: 16px;
-}
+  const addBook = () => {
+    if (bookName.trim() !== "") {
+      setBooks([...books, bookName]);
+      setBookName("");
+    }
+  };
 
-button {
-  padding: 8px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
+  const deleteBook = (index) => {
+    setBooks(books.filter((_, i) => i !== index));
+  };
 
-button:hover {
-  background-color: #0056b3;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  background: #f4f4f4;
-  margin-bottom: 8px;
-  border-radius: 4px;
-}
-
-li button {
-  background-color: red;
-}
-
-li button:hover {
-  background-color: darkred;
+  return (
+    <div className="container">
+      <h1>BookHive</h1>
+      <div className="input-container">
+        <input
+          type="text"
+          value={bookName}
+          onChange={(e) => setBookName(e.target.value)}
+          placeholder="Enter book name"
+        />
+        <button onClick={addBook}>Add Book</button>
+      </div>
+      <ul>
+        {books.map((book, index) => (
+          <li key={index}>
+            {book} <button onClick={""}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
