@@ -31,7 +31,7 @@ export default function App() {
       <ul>
         {books.map((book, index) => (
           <li key={index}>
-            {book} <button onClick={""}>Delete</button>
+            {book} <button onClick={() => deleteBook(index)}>Delete</button>
           </li>
         ))}
       </ul>
